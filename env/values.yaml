@@ -1,14 +1,31 @@
-expose:
-  Args: 
-    - --v
-    - 4
-  Annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: hook-succeeded
-
+PipelineSecrets:
+  DockerConfig: '{"auths": {"docker-registry.default.svc:5000": {"auth": "c2VydmljZWFjY291bnQ6ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklpSjkuZXlKcGMzTWlPaUpyZFdKbGNtNWxkR1Z6TDNObGNuWnBZMlZoWTJOdmRXNTBJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5dVlXMWxjM0JoWTJVaU9pSnFlQ0lzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVmpjbVYwTG01aGJXVWlPaUpxWlc1cmFXNXpMWGd0Y21WbmFYTjBjbmt0ZEc5clpXNHROV1pyYld3aUxDSnJkV0psY201bGRHVnpMbWx2TDNObGNuWnBZMlZoWTJOdmRXNTBMM05sY25acFkyVXRZV05qYjNWdWRDNXVZVzFsSWpvaWFtVnVhMmx1Y3kxNExYSmxaMmx6ZEhKNUlpd2lhM1ZpWlhKdVpYUmxjeTVwYnk5elpYSjJhV05sWVdOamIzVnVkQzl6WlhKMmFXTmxMV0ZqWTI5MWJuUXVkV2xrSWpvaU1qaGxPV1ZoTURFdE4yVTBOUzB4TVdVNUxXRTFZV1V0TlRJMU5EQXdNV1l5WkRJMElpd2ljM1ZpSWpvaWMzbHpkR1Z0T25ObGNuWnBZMlZoWTJOdmRXNTBPbXA0T21wbGJtdHBibk10ZUMxeVpXZHBjM1J5ZVNKOS5LdkFMYVpnbzhIc2k5NFJqaW1OVUN2SEREZ0NBM2xMb3Ezc1o4WXBDaXktYW5NVjZIZ2s3bTV3N3ZpSlJuVkhpUHJjSmJibWltWFQ3X1FPNTRfMHZEVFd6V0ExSzFhdC1kOVB2WjlCRDRvS3ZIRDBRVENLSHl6bzlpSEV0ZjY4NTN1NVRVbzZnQjRXcGt4bVFuVTlQTWNUUFlLaWxVMHFBeGtJY0p5UU1TVmFMakt0V1J3bVZBOVFvUHZ2RGQxS2RHYjlnbnh4RW5reHEyOVB2MDlvNHZzZWpCWVBMaW5Pc2NzT1F0Y01PQ055ODdudGZTYVJ6S0JLaFZfZkNNeFNKQkJ6bUFjOFFGVHJ1d0J0Z29iR1dfRFozX2dmZk9IQ0E2OGtNRDNwZmVNekFhU3kxb1VZT0k5QndOUi1KSEJxX2NkTVpyZEgwMG50elpoenFuN21TdUE="}}}'
 cleanup:
-  Args: 
-    - --cleanup
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --cleanup
+controllerbuild:
+  enabled: true
+controllerworkflow:
+  enabled: false
+dockerRegistry: docker-registry.default.svc:5000
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --v
+  - 4
+  config:
+    domain: 192.168.42.160.nip.io
+    exposer: Route
+    http: "true"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        TILLER_NAMESPACE: kube-system
+  enabled: false
+prow: {}
